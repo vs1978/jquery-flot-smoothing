@@ -28,6 +28,10 @@ Released under the GPLv3 license by Vladimir Panitskiy, July 2012.
         function Splines(newData,rate) {
             var arrPoints = []
 
+            if (newData.length < 6) {
+                return newData
+            }
+
             for (var i = 0; i < newData.length; ++i) {
                 var cntElements = newData.length
                 var P1x,P1y,P4x,P4y 
@@ -60,7 +64,7 @@ Released under the GPLv3 license by Vladimir Panitskiy, July 2012.
                     var x = rate * ( -t * t * t + 2 * t * t - t) * P1x + rate * ( -t * t * t + t * t) * P2x + (2 * t * t * t - 3 * t * t + 1) * P2x + rate * (t * t * t - 2 * t * t + t) * P3x + ( -2 * t * t * t + 3 * t * t) * P3x + rate * (t * t * t - t * t) * P4x
                     var y = rate * ( -t * t * t + 2 * t * t - t) * P1y + rate * ( -t * t * t + t * t) * P2y + (2 * t * t * t - 3 * t * t + 1) * P2y + rate * (t * t * t - 2 * t * t + t) * P3y + ( -2 * t * t * t + 3 * t * t) * P3y + rate * (t * t * t - t * t) * P4y;
 
-                    if(x >= 0 && y >= 0) {
+                    if(x >= 0 && y >= 0 && x <= newData[newData.length - 2]) {
                         if (options.xaxis.mode == 'time') { x = parseInt(x) }
                         arrPoints.push(x,y)
                     }
